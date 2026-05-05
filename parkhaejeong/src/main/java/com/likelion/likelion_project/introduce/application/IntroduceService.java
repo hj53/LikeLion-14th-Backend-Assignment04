@@ -1,5 +1,7 @@
 package com.likelion.likelion_project.introduce.application;
 
+import com.likelion.likelion_project.common.exception.BusinessException;
+import com.likelion.likelion_project.common.response.code.ErrorCode;
 import com.likelion.likelion_project.introduce.api.dto.request.IntroduceSaveRequestDto;
 import com.likelion.likelion_project.introduce.api.dto.request.IntroduceUpdateRequestDto;
 import com.likelion.likelion_project.introduce.api.dto.response.IntroduceInfoResponseDto;
@@ -50,8 +52,9 @@ public class IntroduceService {
     @Transactional
     public void introduceUpdate(Long introduceId, IntroduceUpdateRequestDto introduceUpdateRequestDto) {
         Introduce introduce = introduceRepository.findById(introduceId)
-                .orElseThrow(IllegalArgumentException::new);
-
+                .orElseThrow(() -> new BusinessException(
+                        ErrorCode.SUBSCRIBER_NOT_FOUND_EXCEPTION,
+                        ErrorCode.SUBSCRIBER_NOT_FOUND_EXCEPTION.getMessage() + introduceId));
         introduce.update(introduceUpdateRequestDto);
     }
 
@@ -59,7 +62,10 @@ public class IntroduceService {
     @Transactional
     public void introduceDelete(Long introduceId) {
         Introduce introduce= introduceRepository.findById(introduceId)
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(()-> new BusinessException(
+                        ErrorCode.SUBSCRIBER_NOT_FOUND_EXCEPTION,
+                        ErrorCode.SUBSCRIBER_NOT_FOUND_EXCEPTION.getMessage() + introduceId
+                ));
 
         introduceRepository.delete(introduce);  //spring data jpa 기본구현 메서드
     }

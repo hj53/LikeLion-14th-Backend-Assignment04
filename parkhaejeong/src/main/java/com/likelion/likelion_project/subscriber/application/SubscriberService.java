@@ -30,6 +30,7 @@ public class SubscriberService {
                 .name(subscriberSaveRequestDto.name())
                 .age(subscriberSaveRequestDto.age())
                 .part(subscriberSaveRequestDto.part())
+                .residence(subscriberSaveRequestDto.residence())
                 .build();
         subscriberRepository.save(subscriber);
     }

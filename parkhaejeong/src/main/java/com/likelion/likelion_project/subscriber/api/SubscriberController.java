@@ -66,7 +66,7 @@ public class SubscriberController {
     @PatchMapping("/{subscriberId}")
     @Operation(summary = "회원 업데이트", description = "회원 업데이트")
     public ApiResTemplate<Void> subscriberUpdate(@PathVariable("subscriberId") Long subscriberId,
-                                             @RequestBody SubscriberUpdateRequestDto subscriberUpdateRequestDto) {
+                                             @RequestBody @Valid SubscriberUpdateRequestDto subscriberUpdateRequestDto) {
         subscriberService.subscriberUpdate(subscriberId, subscriberUpdateRequestDto);
         return ApiResTemplate.successWithNoContent(SuccessCode.SUBSCRIBER_UPDATE_SUCCESS);
     }
